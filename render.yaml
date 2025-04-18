@@ -2,10 +2,10 @@ services:
   - type: web
     name: voice-cognitive-detection
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: gunicorn app_flask:app --bind 0.0.0.0:${PORT}
     plan: free
     autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.0
+        value: 3.11.9  # Updated to match your local Python 3.11
