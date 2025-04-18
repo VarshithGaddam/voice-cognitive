@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cognitive Decline Detection Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f2f5, #e0e7ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            background: #fafafa;
+            overflow-x: auto;
+        }
+        .key {
+            color: #3498db;
+            font-weight: 600;
+        }
+        .value {
+            color: #27ae60;
+            margin-left: 5px;
+        }
+        .json-container {
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        .item {
+            margin-bottom: 8px;
+        }
+        p {
+            margin: 5px 0;
+            color: #7f8c8d;
+        }
+        a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cognitive Decline Detection Result</h1>
+        <p>Processing time: {{ processing_time|round(2) }} seconds</p>
+        {% if result is mapping %}
+            <div class="result">
+                <div class="json-container">
+                    {% for key, value in result.items() %}
+                        <div class="item">
+                            <span class="key">"{{ key }}"</span>: <span class="value">{{ value }}</span>
+                            {% if not loop.last %},{% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div class="result" style="color: #e74c3c;">
+                <p>Invalid result format: {{ result }}</p>
+            </div>
+        {% endif %}
+        <a href="/">Upload Another File</a>
+    </div>
+</body>
+</html>
